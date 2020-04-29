@@ -18,13 +18,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install Dependencies
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: |
-        npm --prefix ./functions install
-        npm install -g firebase-tools
-    - name: Deploy Functions
+    - name: Install Dependencies
+      run: |
+          npm --prefix ./functions install
+          npm install -g firebase-tools
+    - name: Deploy
     - run: |
         firebase deploy --token "${{ secrets.FIREBASE_TOKEN }}"
