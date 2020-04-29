@@ -23,6 +23,7 @@ const profilePicture = document.querySelector('#profilePicture');
 const profileDisplayName = document.querySelector('#profileDisplayName');
 
 const auth = firebase.auth();
+const analytics = firebase.analytics();
 
 const authProvider = {
     google: new firebase.auth.GoogleAuthProvider(),
@@ -41,6 +42,7 @@ auth.onAuthStateChanged(user => {
         return;
     }
     // Login user
+    analytics.setUserId(user.uid);
     authInfo.classList.remove('hide');
     interact.classList.remove('hide');
     requestLogin.classList.add('hide');
@@ -53,11 +55,15 @@ auth.onAuthStateChanged(user => {
 
 loginButton.onclick = event => {
     event.preventDefault();
+    analytics.logEvent('login', {
+        method: 'google',
+    });
     loginWithPopUp();
 }
 
 logoutButton.onclick = event => {
     event.preventDefault();
+    analytics.logEvent('logout');
     auth.signOut();
 }
 
@@ -67,6 +73,9 @@ async function savePost() {
     try {
         const userContent = simplemde.value();
         const time = new Date();
+        analytics.logEvent('user_create_new_post', {
+            userContent,
+        });
         await db.collection('posts').add({
             content: userContent,
             lastEditTime: time,
