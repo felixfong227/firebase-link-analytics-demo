@@ -29,7 +29,21 @@ export const onNewPostCreated = functions.firestore.document('posts/{wildcard}')
 
     const analyticsLinksDB = admin.firestore();
 
-     
+    allLinkTags.forEach(link => {
+        const linkID = uuid.v4();
+
+        externalLinks.push(
+            analyticsLinksDB.collection('analytics_links').add({
+                ID: linkID,
+                pointTo: link.getAttribute('href'),
+                createdAt: new Date(),
+                originalPostID: snapshot.id,
+            })
+        );
+
+        link.setAttribute('href', `https://us-central1-birthday-sender.cloudfunctions.net/URLanalytics?ID=${linkID}`);
+
+    });
 
     await Promise.all(externalLinks);
 
