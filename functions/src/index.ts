@@ -1,13 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-var serviceAccount = require('../../gcret.json');
-
-admin.initializeApp({
-    // credential: admin.credential.cert(serviceAccount),
-    credential: admin.credential.applicationDefault(),
-    databaseURL: "https://birthday-sender.firebaseio.com"
-});
+admin.initializeApp();
 
 export const onNewPostCreated = functions.firestore.document('posts/{wildcard}').onCreate(async (snapshot, context) => {
 
