@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
-var serviceAccount = require('../gkey2.json');
+var serviceAccount = require('../../gcret.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),

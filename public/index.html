@@ -23,12 +23,37 @@
             appId: "1:433710819858:web:a788113e54047572a4c6cb"
         };
         firebase.initializeApp(firebaseConfig);
+        firebase.performance();
+        firebase.analytics();
     </script>
 
     <section class="section">
         <div class="container">
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <button class="button is-success" id="post">Post</button>
+
+            <div id="authInfo" class="box hide">
+                <div class="media-content">
+                    <div class="content">
+                        <span>Login In As</span>
+                        <span class="image is-32x32">
+                            <img class="is-rounded" id="profilePicture" />
+                        </span>
+                        <strong id="profileDisplayName"></strong>
+                        <button class="button is-warning" id="logout">Logout</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="requestLogin">
+                <button class="button is-info" id="login">Login</button>
+                <p>To Create New Post</p>
+            </div>
+
+            <div id="interact" class="hide">
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <button class="button is-success" id="post">Post</button>
+            </div>
+
+            <hr />
 
             <div id="showPosts"></div>
 

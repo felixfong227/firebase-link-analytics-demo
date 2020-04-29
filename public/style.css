@@ -2,6 +2,10 @@
   margin-top: 2em;
 }
 
+.hide {
+    display: none;
+}
+
 #showPosts .post {
   position: relative;
 }
@@ -13,4 +17,11 @@
   top: 0em;
   left: 0em;
 }
-/*# sourceMappingURL=style.css.map */
+
+.image{
+    display: inline-block;
+}
+
+.image img {
+    margin-top: 10px;
+}
