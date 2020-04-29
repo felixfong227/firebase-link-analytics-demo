@@ -1,0 +1,16 @@
+#showPosts {
+  margin-top: 2em;
+}
+
+#showPosts .post {
+  position: relative;
+}
+
+#showPosts .post progress {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0em;
+  left: 0em;
+}
+/*# sourceMappingURL=style.css.map */
