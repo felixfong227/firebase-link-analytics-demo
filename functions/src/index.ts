@@ -4,7 +4,8 @@ import * as admin from 'firebase-admin';
 var serviceAccount = require('../../gcret.json');
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    // credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.applicationDefault(),
     databaseURL: "https://birthday-sender.firebaseio.com"
 });
 
@@ -34,21 +35,7 @@ export const onNewPostCreated = functions.firestore.document('posts/{wildcard}')
 
     const analyticsLinksDB = admin.firestore();
 
-    allLinkTags.forEach(link => {
-        const linkID = uuid.v4();
-
-        externalLinks.push(
-            analyticsLinksDB.collection('analytics_links').add({
-                ID: linkID,
-                pointTo: link.getAttribute('href'),
-                createdAt: new Date(),
-                originalPostID: snapshot.id,
-            })
-        );
-
-        link.setAttribute('href', `https://us-central1-birthday-sender.cloudfunctions.net/URLanalytics?ID=${linkID}`);
-
-    });
+     
 
     await Promise.all(externalLinks);
 
