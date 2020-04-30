@@ -3,6 +3,7 @@
   import AuthInfo from "./components/AuthInfo.svelte";
   import LoginFlow from "./components/LoginFlow.svelte";
   import ListPosts from "./components/ListPosts.svelte";
+  import WritingBoard from "./components/Editor.svelte";
 
   let authUser = null;
 
@@ -17,6 +18,9 @@
       <AuthInfo
         displayName={authUser.displayName}
         profilePicture={authUser.photoURL} />
+
+    <WritingBoard />
+
     {:else}
       <!-- Show A Login Button -->
       <LoginFlow />
