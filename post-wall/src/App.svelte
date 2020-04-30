@@ -1,30 +1,29 @@
 <script>
-	export let name;
+  import {auth} from "./firebase";
+  import AuthInfo from "./components/AuthInfo.svelte";
+  import LoginFlow from "./components/LoginFlow.svelte";
+  import ListPosts from "./components/ListPosts.svelte";
+
+  let authUser = null;
+
+  auth.onAuthStateChanged(user => (authUser = user));
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<section class="section">
+  <div class="container">
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+    {#if authUser !== null}
+      <!-- Show Logged In User Info -->
+      <AuthInfo
+        displayName={authUser.displayName}
+        profilePicture={authUser.photoURL} />
+    {:else}
+      <!-- Show A Login Button -->
+      <LoginFlow />
+    {/if}
 
-	h1 {
-		color: #ff3e00; 
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
+    <!-- Show a list of posts -->
+    <ListPosts />
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
+  </div>
+</section>
