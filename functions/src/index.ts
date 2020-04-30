@@ -5,9 +5,13 @@ admin.initializeApp();
 
 export const onNewPostCreated = functions.firestore.document('posts/{wildcard}').onCreate(async (snapshot, context) => {
 
-    const showdown = await import('showdown');
-    const jsdom = await import('jsdom');
-    const uuid = await import('uuid');
+    const [showdown, jsdom, uuid] = await Promise.all(
+        [
+            import('showdown'),
+            import('jsdom'),
+            import('uuid'),
+        ]
+    );
 
     const converter = new showdown.Converter();
 
@@ -84,7 +88,6 @@ export const URLanalytics = functions.https.onRequest(async (req, res) => {
 
     // const docRef = db.doc(`analytics_links/${snap.docs[0].id}`)
     const docRef = db.collection('analytics_links').doc(snap.docs[0].id).collection('clicks').doc()
-
 
     setAnalyticsDataBatch.create(
         docRef,
